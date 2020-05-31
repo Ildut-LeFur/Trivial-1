@@ -5,16 +5,16 @@ public class Question {
     private String option1;
     private String option2;
     private String option3;
-    private int answernb;
+    private int answerNb;
 
     public Question(){}
 
-    public Question(String question, String option1, String option2, String option3, int answernb) {
+    public Question(String question, String option1, String option2, String option3, int answerNb) {
         this.question = question;
         this.option1 = option1;
         this.option2 = option2;
         this.option3 = option3;
-        this.answernb = answernb;
+        this.answerNb = answerNb;
     }
 
     public String getQuestion() {
@@ -49,11 +49,11 @@ public class Question {
         this.option3 = option3;
     }
 
-    public int getAnswernb() {
-        return answernb;
+    public int getAnswerNb() {
+        return answerNb;
     }
 
-    public void setAnswernb(int answernb) {
-        this.answernb = answernb;
+    public void setAnswerNb(int answerNb) {
+        this.answerNb = answerNb;
     }
 }

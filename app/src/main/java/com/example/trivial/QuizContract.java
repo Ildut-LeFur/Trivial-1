@@ -2,9 +2,9 @@ package com.example.trivial;
 
 import android.provider.BaseColumns;
 
-public final class QuizContrac {
+public final class QuizContract {
 
-    private QuizContrac() {}
+    private QuizContract() {}
 
     public static class QuestionTable implements BaseColumns {
         public static final String TABLE_NAME = "quiz_questions";
