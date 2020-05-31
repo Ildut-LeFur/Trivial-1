@@ -13,11 +13,18 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class QuizActivity extends AppCompatActivity {
     public static final String EXTRA_SCORE = "extraScore";
+
+    private static final String KEY_SCORE = "keyScore";
+    private static final String KEY_QUESTION_COUNT = "keyQuestionCount";
+    private static final String KEY_ANSWERED = "keyAnswered";
+    private static final String KEY_QUESTION_LIST = "keyQuestionList";
+
     private TextView textViewQuestion;
     private TextView textViewScore;
     private TextView textViewQuestionCount;
@@ -29,7 +36,7 @@ public class QuizActivity extends AppCompatActivity {
 
     private ColorStateList textColorDefaultRb;
 
-    private List<Question> questionList;
+    private ArrayList<Question> questionList;
     private int questionCounter;
     private int questionCountTotal;
     private Question currentQuestion;
@@ -55,12 +62,23 @@ public class QuizActivity extends AppCompatActivity {
 
         textColorDefaultRb = rb1.getTextColors();
 
-        QuizDataBaseHelper dataBaseHelper = new QuizDataBaseHelper(this);
-        questionList = dataBaseHelper.getAllQuestions();
-        questionCountTotal = questionList.size();
-        Collections.shuffle(questionList);
+        if (savedInstanceState == null) {
+            QuizDataBaseHelper dataBaseHelper = new QuizDataBaseHelper(this);
+            questionList = dataBaseHelper.getAllQuestions();
+            questionCountTotal = questionList.size();
+            Collections.shuffle(questionList);
 
-        showNextQuestion();
+            showNextQuestion();
+
+        } else {
+            questionList = savedInstanceState.getParcelableArrayList(KEY_QUESTION_LIST);
+            questionCountTotal = questionList.size();
+            questionCounter = savedInstanceState.getInt(KEY_QUESTION_COUNT);
+            currentQuestion = questionList.get(questionCounter - 1);
+            score = savedInstanceState.getInt(KEY_SCORE);
+            answered = savedInstanceState.getBoolean(KEY_ANSWERED);
+        }
+
         buttonConfirmNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -153,5 +171,14 @@ public class QuizActivity extends AppCompatActivity {
             Toast.makeText(this, "Press back again to finish", Toast.LENGTH_SHORT).show();
         }
         backPressedTime = System.currentTimeMillis();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(KEY_SCORE, score);
+        outState.putInt(KEY_QUESTION_COUNT, questionCounter);
+        outState.putBoolean(KEY_ANSWERED, answered);
+        outState.putParcelableArrayList(KEY_QUESTION_LIST, questionList);
     }
 }

@@ -1,21 +1,70 @@
 package com.example.trivial;
 
-public class Question {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Question implements Parcelable {
+    private int id;
     private String question;
     private String option1;
     private String option2;
     private String option3;
     private int answerNb;
 
+    private int categoryID;
+
     public Question(){}
 
-    public Question(String question, String option1, String option2, String option3, int answerNb) {
+    public Question(String question, String option1, String option2, String option3, int answerNb, int categoryID) {
         this.question = question;
         this.option1 = option1;
         this.option2 = option2;
         this.option3 = option3;
         this.answerNb = answerNb;
+        this.categoryID = categoryID;
     }
+
+    protected Question(Parcel in) {
+        id = in.readInt();
+        question = in.readString();
+        option1 = in.readString();
+        option2 = in.readString();
+        option3 = in.readString();
+        answerNb = in.readInt();
+        categoryID = in.readInt();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(question);
+        dest.writeString(option1);
+        dest.writeString(option2);
+        dest.writeString(option3);
+        dest.writeInt(answerNb);
+        dest.writeInt(categoryID);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<Question> CREATOR = new Creator<Question>() {
+        @Override
+        public Question createFromParcel(Parcel in) {
+            return new Question(in);
+        }
+
+        @Override
+        public Question[] newArray(int size) {
+            return new Question[size];
+        }
+    };
+
+    public int getId() { return id; }
+
+    public void setId(int id) { this.id = id; }
 
     public String getQuestion() {
         return question;
@@ -56,4 +105,8 @@ public class Question {
     public void setAnswerNb(int answerNb) {
         this.answerNb = answerNb;
     }
+
+    public int getCategoryID() { return categoryID; }
+
+    public void setCategoryID(int categoryID) { this.categoryID = categoryID; }
 }
