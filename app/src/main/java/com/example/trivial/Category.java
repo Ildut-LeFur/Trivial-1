@@ -3,9 +3,10 @@ package com.example.trivial;
 import androidx.annotation.NonNull;
 
 public class Category {
-    public static final int TRI = 1;
-    public static final int CONSOMMATION = 2;
-    public static final int POLLUTION = 3;
+    public static final int  GENERALE = 1;
+    public static final int TRI = 2;
+    public static final int CONSOMMATION = 3;
+    public static final int POLLUTION = 4;
     private int id;
     private String name;
     public Category() {

@@ -68,7 +68,7 @@ public class QuizActivity extends AppCompatActivity {
         int categoryID = intent.getIntExtra(MainActivity.EXTRA_CATEGORY_ID, 0);
         String categoryName = intent.getStringExtra(MainActivity.EXTRA_CATEGORY_NAME);
 
-        textViewCategory.setText("Category: " + categoryName);
+        textViewCategory.setText("Categorie: " + categoryName);
 
         if (savedInstanceState == null) {
             QuizDataBaseHelper dbHelper = QuizDataBaseHelper.getInstance(this);
@@ -94,7 +94,7 @@ public class QuizActivity extends AppCompatActivity {
                     if(rb1.isChecked() || rb2.isChecked() || rb3.isChecked()) {
                         checkAnswer();
                     } else {
-                        Toast.makeText(QuizActivity.this, "please select an answer", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(QuizActivity.this, "Selectionne une des propositions", Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     showNextQuestion();
@@ -121,7 +121,7 @@ public class QuizActivity extends AppCompatActivity {
             questionCounter++;
             textViewQuestionCount.setText("Question " + questionCounter + "/" + questionCountTotal);
             answered = false;
-            buttonConfirmNext.setText("Confirm");
+            buttonConfirmNext.setText("Confirmer");
         } else {
             finishQuiz();
         }
@@ -146,22 +146,22 @@ public class QuizActivity extends AppCompatActivity {
         switch (currentQuestion.getAnswerNb()) {
             case 1:
                 rb1.setTextColor(Color.GREEN);
-                textViewQuestion.setText("Answer 1 is correct");
+                textViewQuestion.setText("La bonne réponses est la 1");
                 break;
             case 2:
                 rb2.setTextColor(Color.GREEN);
-                textViewQuestion.setText("Answer 2 is correct");
+                textViewQuestion.setText("La bonne réponses est la 2");
                 break;
             case 3:
                 rb3.setTextColor(Color.GREEN);
-                textViewQuestion.setText("Answer 3 is correct");
+                textViewQuestion.setText("La bonne réponses est la 3");
                 break;
         }
 
         if (questionCounter < questionCountTotal) {
-            buttonConfirmNext.setText("Next");
+            buttonConfirmNext.setText("Suivant");
         } else {
-            buttonConfirmNext.setText("Finish");
+            buttonConfirmNext.setText("Terminer");
         }
     }
     private void finishQuiz() {
@@ -176,7 +176,7 @@ public class QuizActivity extends AppCompatActivity {
         if (backPressedTime + 2000 > System.currentTimeMillis()) {
             finishQuiz();
         } else {
-            Toast.makeText(this, "Press back again to finish", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Appuie encore pour quitter", Toast.LENGTH_SHORT).show();
         }
         backPressedTime = System.currentTimeMillis();
     }

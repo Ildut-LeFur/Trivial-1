@@ -44,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
                 startQuiz();
             }
         });
+
+
     }
     private void startQuiz() {
         Category selectedCategory = (Category) spinnerCategory.getSelectedItem();
@@ -82,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
     private void loadHighscore() {
         SharedPreferences prefs = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         highscore = prefs.getInt(KEY_HIGHSCORE, 0);
-        textViewHighscore.setText("Highscore: " + highscore);
+        textViewHighscore.setText("Meilleur score: " + highscore);
     }
 
     private void updateHighscore(int highscoreNew) {

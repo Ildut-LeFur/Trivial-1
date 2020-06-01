@@ -42,7 +42,6 @@ public class Question implements Parcelable {
         dest.writeString(option2);
         dest.writeString(option3);
         dest.writeInt(answerNb);
-        dest.writeInt(categoryID);
     }
 
     @Override
@@ -109,4 +108,5 @@ public class Question implements Parcelable {
     public int getCategoryID() { return categoryID; }
 
     public void setCategoryID(int categoryID) { this.categoryID = categoryID; }
+
 }

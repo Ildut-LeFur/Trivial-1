@@ -72,13 +72,16 @@ public class QuizDataBaseHelper extends SQLiteOpenHelper {
     }
 
     private void fillCategoriesTable() {
-        Category c1 = new Category("Tri");
+        Category c1 = new Category("Générale");
         addCategory(c1);
-        Category c2 = new Category("Consommation");
+        Category c2 = new Category("Tri");
         addCategory(c2);
-        Category c3 = new Category("Pollution");
+        Category c3 = new Category("Consommation");
         addCategory(c3);
+        Category c4 = new Category("Pollution");
+        addCategory(c4);
     }
+
     private void addCategory(Category category) {
         ContentValues cv = new ContentValues();
         cv.put(CategoriesTable.COLUMN_NAME, category.getName());
@@ -86,13 +89,16 @@ public class QuizDataBaseHelper extends SQLiteOpenHelper {
     }
 
     private void fillQuestionsTable() {
-        Question q1 = new Question("tri thematic | A is correct", "A","B","C",1,Category.TRI);
+        Question q1 = new Question("Il existe dans l'océan Pacifique une énorme nappe de déchets de la taille de ... ?", "17 terrains de foot","La France","L'Europe",2,Category.POLLUTION);
         addQuestion(q1);
-        Question q2 = new Question("consuption thematic | B is correct", "A","B","C",2,Category.CONSOMMATION);
+        Question q2 = new Question("Où finissent la plupart de nos déchets", "Dans l'Océan","Sous terre","Dans l'espace",1,Category.TRI);
         addQuestion(q2);
-        Question q3 = new Question("pollution thematic | C is correct", "A","B","C",3,Category.POLLUTION);
+        Question q3 = new Question("Parmis ces dechets, lequel n'est pas recyclable ?", "Un sac plastique","Une boite à chaussures en carton","Un pot de confiture en verre",1,Category.TRI);
         addQuestion(q3);
+        Question q4 = new Question("Parmis ces appareils électro-ménagers, lequel consomme le plus ?", "Le réfrigérateur","Le four","Le sèche linge",2,Category.CONSOMMATION);
+        addQuestion(q4);
     }
+
     private void addQuestion(Question question){
         ContentValues cv = new ContentValues();
         cv.put(QuestionsTable.COLUMN_QUESTION, question.getQuestion());
@@ -102,6 +108,11 @@ public class QuizDataBaseHelper extends SQLiteOpenHelper {
         cv.put(QuestionsTable.COLUMN_ANSWER_NB, question.getAnswerNb());
         cv.put(QuestionsTable.COLUMN_CATEGORY_ID, question.getCategoryID());
         db.insert(QuestionsTable.TABLE_NAME, null, cv);
+        if (question.getCategoryID()!=Category.GENERALE)
+        {   cv.remove(QuestionsTable.COLUMN_CATEGORY_ID);
+            cv.put(QuestionsTable.COLUMN_CATEGORY_ID, Category.GENERALE);
+            db.insert(QuestionsTable.TABLE_NAME, null, cv);
+        }
     }
 
     public List<Category> getAllCategories() {
